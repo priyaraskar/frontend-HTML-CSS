@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Optimized Accordion with Glyphicons Circular Icons and Icon Color Change</title>
+  <!-- Bootstrap 5 CSS via CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" />
+  <!-- Glyphicons CSS via CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glyphicons-css@1.1.0/template.min.css" />
+  <style>
+    /* Remove default focus outlines and shadows */
+    .accordion-button:focus { 
+      box-shadow: none !important; 
+      outline: none !important; 
+    }
+    .accordion-button:not(.collapsed) { 
+      box-shadow: none; 
+    }
+    
+    /* Accordion item styling */
+    .accordion-item {
+      border: none;
+      margin-bottom: 15px;
+      transition: margin-bottom 0.3s ease;
+    }
+    .accordion-item:last-child { 
+      margin-bottom: 0;
+    }
+    .accordion-item.open-item { 
+      margin-bottom: 0;
+    }
+    
+    /* Accordion button styling with rounded corners */
+    .accordion-button {
+      background-color: #e0f7fa !important;
+      color: #00796b !important;
+      border: none !important;
+      transition: background-color 0.3s ease;
+      border-radius: 20px !important;
+      position: relative;
+    }
+    .accordion-button:hover { 
+      background-color: #b2ebf2 !important; 
+    }
+    
+    /* Button text popup effect */
+    .accordion-button span {
+      transition: transform 0.3s ease, font-weight 0.3s ease;
+      display: inline-block;
+    }
+    .accordion-button.open span {
+      font-weight: bold;
+      transform: scale(1.2);
+    }
+    
+    /* Glyphicons circular icon styling */
+    .accordion-button i {
+      margin-left: auto;
+      transition: transform 0.3s ease, color 0.3s ease;
+      font-size: 1.5rem;
+      /* Icon color same as accordion text when closed */
+      color: #00796b;
+      transform: rotate(0deg) scale(1);
+    }
+    .accordion-button.open i {
+      /* Rotate 180 degrees and scale up */
+      transform: rotate(180deg) scale(1.15);
+      /* Change icon to a darker teal when open */
+      color: #005b4f;
+    }
+    
+    /* Accordion content animation */
+    .accordion-body {
+      position: relative;
+      opacity: 0;
+      transform: scale(0.9);
+      animation: zoomIn 0.6s ease-out forwards;
+      padding: 20px;
+    }
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    
+    /* Inset side borders via pseudo-element */
+    .accordion-body::before {
+      content: "";
+      position: absolute;
+      top: 10px;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      border-left: 1px solid #c5eefb;
+      border-right: 1px solid #c5eefb;
+      pointer-events: none;
+    }
+    .accordion-body.hide-border::before { 
+      display: none !important;
+    }
+    
+    /* Closing animation for content */
+    .accordion-body.closing {
+      animation: zoomOutSlideUp 0.6s ease forwards;
+    }
+    @keyframes zoomOutSlideUp {
+      from { opacity: 1; transform: scale(1) translateY(0); }
+      to   { opacity: 0; transform: scale(0.8) translateY(-30px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="accordion" id="accordionExample">
+      <!-- Section 1 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                  aria-expanded="false" aria-controls="collapseOne">
+            <span>Section 1</span>
+            <i class="glyphicons glyphicons-plus-sign"></i>
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse"
+             aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            Here is the content of Section 1.
+          </div>
+        </div>
+      </div>
+      <!-- Section 2 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                  aria-expanded="false" aria-controls="collapseTwo">
+            <span>Section 2</span>
+            <i class="glyphicons glyphicons-plus-sign"></i>
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse"
+             aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            Section 2 content appears here.
+          </div>
+        </div>
+      </div>
+      <!-- Section 3 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                  aria-expanded="false" aria-controls="collapseThree">
+            <span>Section 3</span>
+            <i class="glyphicons glyphicons-plus-sign"></i>
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse"
+             aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            Section 3 content scales dynamically when opened.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bootstrap JS Bundle via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Toggle 'open' class on accordion buttons and update Glyphicons icons.
+    document.querySelectorAll('.accordion-button').forEach(button => {
+      button.addEventListener('click', () => {
+        // Reset all buttons.
+        document.querySelectorAll('.accordion-button').forEach(btn => {
+          btn.classList.remove('open');
+          const btnIcon = btn.querySelector('i');
+          if (btnIcon) {
+            btnIcon.classList.remove('glyphicons-minus-sign');
+            btnIcon.classList.add('glyphicons-plus-sign');
+          }
+        });
+        // For the clicked button, if opening, add the "open" class and swap the icon.
+        if (!button.classList.contains('collapsed')) {
+          button.classList.add('open');
+          const icon = button.querySelector('i');
+          if (icon) {
+            icon.classList.remove('glyphicons-plus-sign');
+            icon.classList.add('glyphicons-minus-sign');
+          }
+        }
+      });
+    });
+    
+    // Toggle open-item class on accordion items and manage content closing animations.
+    document.querySelectorAll('.accordion-collapse').forEach(collapseEl => {
+      collapseEl.addEventListener('shown.bs.collapse', () => {
+        collapseEl.closest('.accordion-item').classList.add('open-item');
+      });
+      collapseEl.addEventListener('hidden.bs.collapse', () => {
+        collapseEl.closest('.accordion-item').classList.remove('open-item');
+      });
+      
+      collapseEl.addEventListener('hide.bs.collapse', () => {
+        const body = collapseEl.querySelector('.accordion-body');
+        if (body) body.classList.add('closing', 'hide-border');
+      });
+      collapseEl.addEventListener('hidden.bs.collapse', () => {
+        const body = collapseEl.querySelector('.accordion-body');
+        if (body) body.classList.remove('closing', 'hide-border');
+      });
+    });
+  </script>
+</body>
+</html>
