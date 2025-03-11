@@ -62,3 +62,4 @@ Contributions and suggestions are welcome! Please open an issue for any major ch
 - [Bootstrap 5](https://getbootstrap.com/)
 - [Glyphicons CSS](https://glyphicons.com/)
 - Inspiration from various CSS animation and UI design tutorials
+
